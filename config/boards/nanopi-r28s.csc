@@ -18,3 +18,11 @@ function post_family_config__nanopi_r28s_rkr72_test_kernel() {
 	declare -g KERNELSOURCE="https://github.com/wukibaka/linux-rockchip.git"
 	declare -g KERNELBRANCH="branch:nanopi-r28s-rkr7.2"
 }
+
+function post_family_tweaks_bsp__nanopi_r28s_net_led() {
+	install -m 644 $SRC/packages/bsp/nanopi-r28s/nanopi-r28s-net-led.service $destination/etc/systemd/system/
+}
+
+function post_family_tweaks__nanopi_r28s_enable_net_led() {
+	chroot $SDCARD /bin/bash -c "systemctl --no-reload enable nanopi-r28s-net-led.service >/dev/null 2>&1"
+}
